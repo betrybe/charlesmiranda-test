@@ -36,7 +36,7 @@ module.exports = {
         }
     },        
 
-    login: async (credentials) => {
+    login: async (user) => {
         const client = await MongoClient.connect(DB_URL, 
             { useNewUrlParser: true, useUnifiedTopology: true });
     
@@ -44,8 +44,8 @@ module.exports = {
     
         try {
             return await db.collection('users').findOne({ 
-                email: credentials.email, 
-                password: credentials.password });
+                email: user.email, 
+                password: user.password });
         } catch (err) {
             throw InternalServerError(`Unexpected error: ' ${err}`);
         } finally {
